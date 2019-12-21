@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <string.h>
 #include <unistd.h>
@@ -266,6 +267,29 @@ void editorInsertChar(int c)
 
 /** File I/O **/
 
+char *editorRowsToString(int *buflen)
+{
+	int totlen = 0;
+	int j;
+	for(j = 0; j < E.numrows; j++)
+		totlen += E.row[j].size + 1;
+
+	*buflen = totlen;
+
+
+	char *buf = malloc(totlen);
+	char *p = buf;
+	for(j = 0; j < E.numrows; j++)
+	{
+		memcpy(p, E.row[j].chars, E.row[j].size);
+		p += E.row[j].size;
+		*p = '\n';
+		p++;
+	}
+
+	return buf;
+}
+
 void editorOpen(char *filename)
 {
 	free(E.filename);
@@ -287,7 +311,19 @@ void editorOpen(char *filename)
 	fclose(fp);
 }
 
+void editorSave()
+{
+	if (E.filename == NULL) 
+		return;
+	int len;
+	char *buf = editorRowsToString(&len);
 
+	int fd = open(E.filename, O_RDWR | O_CREAT, 0644);
+	ftruncate(fd,len);
+	write(fd,buf,len);
+	close(fd);
+	free(buf);
+}
 
 
 /** Append Buffer **/
@@ -522,6 +558,10 @@ void editorProcessKeypress()
 		exit(0);
 		break;
 
+		case CTRL_KEY('s'):
+		editorSave();
+		break;
+
 		case HOME_KEY:
 		E.cx = 0;
 		break;
@@ -599,7 +639,7 @@ int main(int argc, char* argv[])
 	{
 		editorOpen(argv[1]);	
 	}
-	editorSetStatusMessage("HELP: Ctrl-Q = Quit");
+	editorSetStatusMessage("HELP: Ctrl-q = Quit, Ctrl-s = Save");
 	while (1)
 	{
 		editorRefreshScreen();
