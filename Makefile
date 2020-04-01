@@ -1,2 +1,2 @@
-yogi: yogi.c
-	$ gcc yogi.c -o yogi -Wall -Wextra -pedantic
+sith: yogi.c
+	$ gcc yogi.c -o sith -Wall -Wextra -pedantic

@@ -586,7 +586,7 @@ void editorDrawRows(struct abuf *ab)
 			if (E.numrows==0 && i == E.screenrows /3)
 			{
 				char welcome[100];
-				int welcomelen = snprintf(welcome, sizeof(welcome), "Yogi Editor -- Version %s Ctrl + q to Exit", YOGI_VERSION);
+				int welcomelen = snprintf(welcome, sizeof(welcome), "Sith: A Text Editor -- Version %s Ctrl + q to Exit", YOGI_VERSION);
 				if (welcomelen > E.screencols) welcomelen = E.screencols;
 				int padding = (E.screencols - welcomelen) / 2;
 				if (padding)
