@@ -1,6 +1,6 @@
 # Sith - A Command Line Text Editor
 
-## Sith is a command line text editor with basic functionality, like search etc.
+## Sith is a command line text editor with basic functionality
 
 It contains about 1000 lines of code, purely in **C**.
 
