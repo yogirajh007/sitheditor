@@ -13,8 +13,8 @@ Execute following on Terminal:
 git clone https://github.com/yogirajh007/sitheditor.git
 cd yogieditor
 make
-sudo cp yogi /usr/bin/
-yogi
+sudo cp sith /usr/bin/
+sith
    ```
    
 
