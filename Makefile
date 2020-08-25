@@ -1,2 +1,2 @@
 sith: yogi.c
-	$ gcc yogi.c -o sith -Wextra -pedantic
+	$ gcc yogi.c -o sith
